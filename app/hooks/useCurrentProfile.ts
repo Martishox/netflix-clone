@@ -1,9 +1,9 @@
 import useSWR from "swr";
 import fetcher from "@/app/lib/fetcher";
 
-const useFavorites = (profileId?: string) => {
+const useCurrentProfile = (profileId?: string) => {
   const { data, error, isLoading, mutate } = useSWR(
-    profileId ? `/api/favorites/${profileId}` : null,
+    profileId ? `/api/profiles/${profileId}` : null,
     fetcher,
     {
       revalidateIfStale: false,
@@ -20,4 +20,4 @@ const useFavorites = (profileId?: string) => {
   };
 };
 
-export default useFavorites;
+export default useCurrentProfile;

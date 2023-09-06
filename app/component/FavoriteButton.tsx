@@ -1,43 +1,55 @@
 import axios from "axios";
 import React, { FC, useCallback, useMemo } from "react";
 
-import useCurrentUser from "@/app/hooks/useCurrentUser";
 import useFavorites from "@/app/hooks/useFavorites";
 import { AiOutlinePlus, AiOutlineCheck } from "react-icons/ai";
+import useCurrentProfile from "@/app/hooks/useCurrentProfile";
+import { useProfileId } from "@/app/component/ContextProvider";
 
 interface FavoriteButtonProps {
   movieId: string;
 }
 
 const FavoriteButton: FC<FavoriteButtonProps> = ({ movieId }) => {
-  const { mutate: mutateFavorites } = useFavorites();
-  const { data: currentUser, mutate } = useCurrentUser();
+  const { profileId } = useProfileId();
+  const { data: currentProfile, mutate } = useCurrentProfile(
+    profileId?.id
+  );
+
+  const { mutate: mutateFavorites } = useFavorites(profileId?.id);
 
   const isFavorite = useMemo(() => {
-    const list = currentUser?.favoriteIds || [];
+    const list = currentProfile?.favoriteIds || [];
 
     return list.includes(movieId);
-  }, [currentUser, movieId]);
+  }, [currentProfile, movieId]);
 
   const toggleFavorites = useCallback(async () => {
-    let response;
-    if (isFavorite) {
-      response = await axios.delete("/api/favorite", {
-        data: { movieId },
+    try {
+      let response;
+      if (isFavorite) {
+        response = await axios.delete("/api/favorite", {
+          data: { movieId, profileId },
+        });
+      } else {
+        response = await axios.post("/api/favorite", {
+          movieId,
+          profileId,
+        });
+      }
+
+      const updatedFavoriteIds = response?.data?.favoriteIds;
+
+      mutate({
+        ...currentProfile,
+        favoriteIds: updatedFavoriteIds,
       });
-    } else {
-      response = await axios.post("/api/favorite", { movieId });
+
+      mutateFavorites();
+    } catch (error) {
+      console.error("Error toggling favorites:", error);
     }
-
-    const updatedFavoriteIds = response?.data?.favoriteIds;
-
-    mutate({
-      ...currentUser,
-      favoriteIds: updatedFavoriteIds,
-    });
-
-    mutateFavorites();
-  }, [movieId, isFavorite, currentUser, mutate, mutateFavorites]);
+  }, [movieId, isFavorite, currentProfile, mutate, mutateFavorites]);
 
   const Icon = isFavorite ? AiOutlineCheck : AiOutlinePlus;
 

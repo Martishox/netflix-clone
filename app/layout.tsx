@@ -1,7 +1,10 @@
-import "./globals.css";
+"use client";
+
+import "@/app/globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Provider from "./component/Provider";
+import Provider from "@/app/component/Provider";
+import { ProfileIdProvider } from "@/app/component/ContextProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +24,9 @@ export default function RootLayout({
         <link rel="icon" href="/net.ico" />
       </head>
       <body className={inter.className}>
-        <Provider>{children}</Provider>
+        <ProfileIdProvider>
+          <Provider>{children}</Provider>
+        </ProfileIdProvider>
       </body>
     </html>
   );

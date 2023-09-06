@@ -1,16 +1,18 @@
 "use client";
 
-import Navbar from "./component/Navbar";
-import Billboard from "./component/Billboard";
-import MovieList from "./component/MovieList";
-import useMovieList from "./hooks/useMovieList";
-import useFavorites from "./hooks/useFavorites";
+import Navbar from "@/app/component/Navbar";
+import Billboard from "@/app/component/Billboard";
+import MovieList from "@/app/component/MovieList";
+import useMovieList from "@/app/hooks/useMovieList";
+import useFavorites from "@/app/hooks/useFavorites";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
+import { useProfileId } from "@/app/component/ContextProvider";
 
 export default function Home() {
+  const { profileId } = useProfileId();
   const { data: movies = [] } = useMovieList();
-  const { data: favorites = [] } = useFavorites();
+  const { data: favorites = [] } = useFavorites(profileId?.id);
 
   const { data: session } = useSession({
     required: true,
@@ -18,6 +20,7 @@ export default function Home() {
       redirect("/auth");
     },
   });
+
   return (
     <>
       <Navbar />

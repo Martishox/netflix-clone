@@ -2,13 +2,18 @@ import { without } from "lodash";
 
 import prismadb from "@/app/lib/prismadb";
 import serverAuth from "@/app/lib/serverAuth";
+import { useProfileId } from "@/app/component/ContextProvider";
 
 export async function POST(req: Request) {
   try {
     if (req.method === "POST") {
-      const { currentUser } = await serverAuth(req);
+      const { movieId, profileId } = await req.json();
 
-      const { movieId } = await req.json();
+      const existingProfile = await prismadb.profile.findUnique({
+        where: {
+          id: profileId?.id,
+        },
+      });
 
       const existingMovie = await prismadb.movie.findUnique({
         where: {
@@ -17,21 +22,29 @@ export async function POST(req: Request) {
       });
 
       if (!existingMovie) {
-        throw new Error("Invalid ID");
+        throw new Error("Invalid Movie ID");
       }
 
-      const user = await prismadb.user.update({
-        where: {
-          email: currentUser?.email || "",
-        },
-        data: {
-          favoriteIds: {
-            push: movieId,
-          },
-        },
-      });
+      if (!existingProfile) {
+        throw new Error("User Profile not found");
+      }
 
-      return new Response(JSON.stringify(user), { status: 200 });
+      if (!existingProfile?.favoriteIds.includes(movieId)) {
+        const updatedProfile = await prismadb.profile.update({
+          where: {
+            id: existingProfile?.id,
+          },
+          data: {
+            favoriteIds: {
+              push: movieId,
+            },
+          },
+        });
+
+        return new Response(JSON.stringify(updatedProfile), {
+          status: 200,
+        });
+      }
     }
 
     return new Response("405", { status: 405 });
@@ -43,9 +56,13 @@ export async function POST(req: Request) {
 export async function DELETE(req: Request) {
   try {
     if (req.method === "DELETE") {
-      const { currentUser } = await serverAuth(req);
+      const { movieId, profileId } = await req.json();
 
-      const { movieId } = await req.json();
+      const existingProfile = await prismadb.profile.findUnique({
+        where: {
+          id: profileId?.id,
+        },
+      });
 
       const existingMovie = await prismadb.movie.findUnique({
         where: {
@@ -54,27 +71,32 @@ export async function DELETE(req: Request) {
       });
 
       if (!existingMovie) {
-        throw new Error("Invalid ID");
+        throw new Error("Invalid Movie ID");
+      }
+
+      if (!existingProfile) {
+        throw new Error("User Profile not found");
       }
 
       const updatedFavoriteIds = without(
-        currentUser?.favoriteIds,
+        existingProfile?.favoriteIds || [],
         movieId
       );
 
-      const updatedUser = await prismadb.user.update({
+      const updatedProfile = await prismadb.profile.update({
         where: {
-          email: currentUser?.email || "",
+          id: existingProfile?.id,
         },
         data: {
           favoriteIds: updatedFavoriteIds,
         },
       });
 
-      return new Response(JSON.stringify(updatedUser), {
+      return new Response(JSON.stringify(updatedProfile), {
         status: 200,
       });
     }
+
     return new Response("405", { status: 405 });
   } catch (error) {
     return new Response("500", { status: 500 });

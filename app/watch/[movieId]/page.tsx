@@ -1,9 +1,9 @@
 "use client";
 
 import { BsArrowLeftShort } from "react-icons/bs";
-import { useRouter, useSearchParams } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import useMovie from "@/app/hooks/useMovie";
-import { useEffect } from "react";
+import { useSession } from "next-auth/react";
 
 const Watch = ({ params }: { params: { movieId: string } }) => {
   const router = useRouter();
@@ -12,12 +12,19 @@ const Watch = ({ params }: { params: { movieId: string } }) => {
 
   const { data } = useMovie(movieId);
 
+  const { data: session } = useSession({
+    required: true,
+    onUnauthenticated() {
+      redirect("/auth");
+    },
+  });
+
   return (
     <div className="h-screen w-screen bg-black">
       <nav className="fixed w-full p-4 z-10 flex flex-row items-center gap-8 bg-black bg-opacity-70">
         <BsArrowLeftShort
           size={30}
-          onClick={() => router.push("/")}
+          onClick={() => router.back()}
           className="w-4 md:w-10 text-white cursor-pointer hover:opacity-80 transition"
         />
         <p className="text-white text-1xl md:text-3xl font-bold">

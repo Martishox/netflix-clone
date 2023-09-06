@@ -18,6 +18,10 @@ const nextConfig = {
         hostname: "download.blender.org",
         pathname: "/ED/cover.jpg",
       },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
     ],
   },
 };

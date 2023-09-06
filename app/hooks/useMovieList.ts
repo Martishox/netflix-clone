@@ -9,6 +9,8 @@ const useMovieList = () => {
     revalidateOnReconnect: false,
   });
 
+  console.log(data);
+
   return {
     data,
     error,
