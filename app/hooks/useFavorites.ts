@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import fetcher from "../lib/fetcher";
+import fetcher from "@/app/lib/fetcher";
 
 const useFavorites = () => {
   const { data, error, isLoading, mutate } = useSWR(

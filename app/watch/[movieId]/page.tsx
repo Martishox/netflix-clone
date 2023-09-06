@@ -1,9 +1,8 @@
 "use client";
 
 import { BsArrowLeftShort } from "react-icons/bs";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import useMovie from "@/app/hooks/useMovie";
-import { useEffect } from "react";
 
 const Watch = ({ params }: { params: { movieId: string } }) => {
   const router = useRouter();
