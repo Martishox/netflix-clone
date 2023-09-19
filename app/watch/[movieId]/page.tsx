@@ -1,7 +1,7 @@
 "use client";
 
 import { BsArrowLeftShort } from "react-icons/bs";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter, redirect } from "next/navigation";
 import useMovie from "@/app/hooks/useMovie";
 import { useSession } from "next-auth/react";
 
