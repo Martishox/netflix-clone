@@ -75,37 +75,38 @@ const CreateProfile = () => {
     <>
       <div className="flex items-center h-full justify-center">
         <form className="flex flex-col">
-          <h1 className="text-3xl md:text-6xl text-white text-left">
+          <h1 className="text-3xl md:text-7xl text-white text-left">
             Add Profile
           </h1>
-          <h3 className=" my-4 text-sm md:text-lg text-[#545454] text-left">
+          <h3 className=" my-4 text-md md:text-2xl text-[#545454] text-left">
             Add a profile for another person watching Netflix.
           </h3>
           <div className="flex-grow border-t border-[#2e2e2e]"></div>
           <div className="my-5 flex items-center">
             <Image
-              className="rounded-md"
-              width={120}
-              height={120}
+              className="rounded-md mx-2"
+              width={150}
+              height={150}
               src={selectedImage}
               alt="Profile"
             />
+
             <input
               type="text"
               placeholder="Name"
               value={profileData.name}
               onChange={handleNameChange}
-              className="bg-neutral-700 appearance-none py-1 px-2 mx-5 text-white focus:outline-none"
+              className="bg-neutral-700 w-96 h-12 text-lg appearance-none py-1 px-2 mx-5 text-white focus:outline-none"
             />
             <div
               onClick={toggleIsCheck}
               className="cursors-pointer group/item">
               <Icon
                 className="text-[#545454] cursor-pointer"
-                size={30}
+                size={50}
               />
             </div>
-            <span className="text-white ml-3">Kid?</span>
+            <span className="text-white text-xl ml-2">Kid?</span>
           </div>
           <div className="flex-grow border-t border-[#2e2e2e]"></div>
           <div>
@@ -118,18 +119,16 @@ const CreateProfile = () => {
                 onClick={() => {
                   handleCreateProfile();
                 }}
-                className="border bg-white py-1 px-5 mr-5 mt-10 text-lg">
+                className="bg-white text-black py-2.5 px-8 mr-5 mt-10 text-xl md:text-2xl font-bold hover:text-white hover:bg-[#cc0000]">
                 Continue
               </button>
             </Link>
-            <Link
-              href={{
-                pathname: "/profiles",
-              }}>
-              <button className="border border-[#858585] text-[#858585] py-1 px-5 text-lg">
-                Cancel
-              </button>
-            </Link>
+
+            <button
+              onClick={() => router.back()}
+              className="border text-xl md:text-2xl border-[#858585] text-[#858585] py-2.5 px-8 hover:text-white hover:border-white">
+              Cancel
+            </button>
           </div>
         </form>
       </div>

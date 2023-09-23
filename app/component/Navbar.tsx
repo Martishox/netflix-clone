@@ -55,7 +55,6 @@ const Navbar = () => {
         <Image height={31} width={120} src={logo} />
         <div className="flex-row ml-8 gap-7 hidden lg:flex">
           <NavbarItem label="Home" />
-          <NavbarItem label="Series" />
           <NavbarItem label="Films" />
           <NavbarItem label="New & Popular" />
           <NavbarItem label="My List" />

@@ -58,7 +58,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ visible }) => {
         <div className="px-3 group/item flex flex-row gap-3 items-center w-full">
           <PiPencilSimpleBold className="text-white" size={30} />
           <p
-            onClick={() => router.push("/profiles")}
+            onClick={() => router.push("/manageProfiles")}
             className="text-white text-sm hover/item:underline cursor-pointer">
             Manage Profiles
           </p>

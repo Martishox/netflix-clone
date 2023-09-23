@@ -1,12 +1,13 @@
-import { redirect, useRouter } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 import Image from "next/legacy/image";
 import profile from "@/app/public/default-slate.png";
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import useProfile from "@/app/hooks/useProfiles";
 import { useSession } from "next-auth/react";
 import { BsPlusCircle } from "react-icons/bs";
 import Link from "next/link";
 import { useProfileId } from "@/app/component/ContextProvider";
+import { PiPencilSimpleBold } from "react-icons/pi";
 
 interface ProfileCardProps {
   toggleNewProfile: () => void;
@@ -19,7 +20,7 @@ interface ProfileProps {
 }
 
 const ProfileCard: FC<ProfileCardProps> = ({ toggleNewProfile }) => {
-  const router = useRouter();
+  const pathname = usePathname();
 
   const { setProfileId } = useProfileId();
 
@@ -34,26 +35,10 @@ const ProfileCard: FC<ProfileCardProps> = ({ toggleNewProfile }) => {
 
   return (
     <>
-      <div className="flex items-center justify-center flex-wrap nt-10 mt-10">
-        <div className="flex gap-4" onClick={() => router.push("/")}>
-          <div className="group flex-row w-44 mx-2 my-5">
-            <div className="w-44 h-44 rounded-md flex items-center justify-center border-2 border-transparent group-hover:cursor-pointer group-hover:border-white overflow-hidden">
-              <Image
-                src={profile}
-                width={190}
-                height={190}
-                alt="Profile"
-              />
-            </div>
-            <div className="mt-4 text-gray-400 text-2xl text-center group-hover:text-white">
-              {session?.user?.name}
-            </div>
-          </div>
-        </div>
-
+      <div className="flex items-center justify-center flex-wrap nt-10 mt-10 ">
         {profileData &&
           profileData.map((profiles: ProfileProps, index: number) => (
-            <div key={`profile-${index}`} className="flex gap-4">
+            <div key={`profile-${index}`} className="flex">
               <div
                 onClick={() =>
                   setProfileId({
@@ -63,31 +48,56 @@ const ProfileCard: FC<ProfileCardProps> = ({ toggleNewProfile }) => {
                     kid: false,
                   })
                 }
-                className="group flex-row w-44 mx-2 my-5">
-                <Link
-                  href={{
-                    pathname: "/",
-                  }}>
-                  <div className="w-44 h-44 rounded-md flex items-center justify-center border-2 border-transparent group-hover:cursor-pointer group-hover:border-white overflow-hidden">
-                    <Image
-                      src={profiles?.image}
-                      width={190}
-                      height={190}
-                      alt="Profile"
-                    />
-                  </div>
-                  <div className="mt-4 text-gray-400 text-2xl text-center group-hover:text-white">
-                    {profiles?.name}
-                  </div>
-                </Link>
+                className="group flex-row w-44 mx-4 my-5">
+                {pathname === "/manageProfiles" ? (
+                  <Link
+                    href={{
+                      pathname: "/profiles/manage",
+                    }}>
+                    <div className="group relative w-44 h-44 rounded-md flex items-center justify-center border-2 border-transparent group-hover:cursor-pointer group-hover:border-white overflow-hidden">
+                      <Image
+                        src={profiles?.image}
+                        width={220}
+                        height={220}
+                        alt="Profile"
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white opacity-100 transition-opacity">
+                        <PiPencilSimpleBold
+                          className="text-white"
+                          size={50}
+                        />
+                      </div>
+                    </div>
+                    <div className="mt-4 text-gray-400 text-2xl text-center group-hover:text-white">
+                      {profiles?.name}
+                    </div>
+                  </Link>
+                ) : (
+                  <Link
+                    href={{
+                      pathname: "/",
+                    }}>
+                    <div className=" w-44 h-44 rounded-md flex items-center justify-center border-2 border-transparent group-hover:cursor-pointer group-hover:border-white overflow-hidden">
+                      <Image
+                        src={profiles?.image}
+                        width={220}
+                        height={220}
+                        alt="Profile"
+                      />
+                    </div>
+                    <div className="mt-4 text-gray-400 text-2xl text-center group-hover:text-white">
+                      {profiles?.name}
+                    </div>
+                  </Link>
+                )}
               </div>
             </div>
           ))}
 
-        {profileData && profileData.length === 4 ? (
+        {profileData && profileData.length === 5 ? (
           " "
         ) : (
-          <div className="group flex-row w-44 mx-auto">
+          <div className="group flex-row w-44 ">
             <Link
               href={{
                 pathname: "/addProfile",
