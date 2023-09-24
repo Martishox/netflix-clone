@@ -15,7 +15,7 @@ const MovieCard: FC<MovieCardProps> = ({ data }) => {
   const { openModal } = useInfoModalStore();
   return (
     <>
-      <div className="group bg-zinc-900 col-span relative w-[18vw] h-full ">
+      <div className="group bg-zinc-900 col-span relative w-[18vw]">
         <div className="h-[12vw] w-[18vw]">
           <Image
             className="cursor-pointer object-cover transition duration shadow-xl rounded-md group-hover:opacity-90 sm:group-hover:opacity-0 delay-300 w-full h-[12vw]"
@@ -58,9 +58,6 @@ const MovieCard: FC<MovieCardProps> = ({ data }) => {
               <p className="text-white text-[10px] lg:text-sm">
                 {data.duration}
               </p>
-            </div>
-
-            <div className="flex flex-row mt-4 gap-2 items-center">
               <p className="text-white text-[10px] lg:text-sm">
                 {data.genre}
               </p>

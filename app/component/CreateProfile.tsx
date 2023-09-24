@@ -82,7 +82,7 @@ const CreateProfile = () => {
             Add a profile for another person watching Netflix.
           </h3>
           <div className="flex-grow border-t border-[#2e2e2e]"></div>
-          <div className="my-5 flex items-center">
+          <div className="my-5 flex items-center max-w-full h-auto">
             <Image
               className="rounded-md mx-2"
               width={150}
@@ -96,17 +96,19 @@ const CreateProfile = () => {
               placeholder="Name"
               value={profileData.name}
               onChange={handleNameChange}
-              className="bg-neutral-700 w-96 h-12 text-lg appearance-none py-1 px-2 mx-5 text-white focus:outline-none"
+              className="bg-neutral-700 w-64 h-10 md:w-96 md:h-12 text-lg appearance-none py-1 px-2 mx-5 text-white focus:outline-none"
             />
             <div
               onClick={toggleIsCheck}
-              className="cursors-pointer group/item">
+              className="cursors-pointer group/item ">
               <Icon
-                className="text-[#545454] cursor-pointer"
+                className="text-[#545454] cursor-pointer max-w-full w-8 h-8"
                 size={50}
               />
             </div>
-            <span className="text-white text-xl ml-2">Kid?</span>
+            <span className="text-white text-md md:text-xl ml-2">
+              Kid?
+            </span>
           </div>
           <div className="flex-grow border-t border-[#2e2e2e]"></div>
           <div>
@@ -119,14 +121,14 @@ const CreateProfile = () => {
                 onClick={() => {
                   handleCreateProfile();
                 }}
-                className="bg-white text-black py-2.5 px-8 mr-5 mt-10 text-xl md:text-2xl font-bold hover:text-white hover:bg-[#cc0000]">
+                className="bg-white text-black py-2.5 px-8 mr-5 mt-10 text-sm md:text-2xl font-bold hover:text-white hover:bg-[#cc0000]">
                 Continue
               </button>
             </Link>
 
             <button
               onClick={() => router.back()}
-              className="border text-xl md:text-2xl border-[#858585] text-[#858585] py-2.5 px-8 hover:text-white hover:border-white">
+              className="border text-sm md:text-2xl border-[#858585] text-[#858585] py-2.5 px-8 hover:text-white hover:border-white">
               Cancel
             </button>
           </div>
