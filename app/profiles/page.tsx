@@ -3,8 +3,9 @@
 import { useSession } from "next-auth/react";
 import { redirect, useRouter } from "next/navigation";
 import CreateProfile from "@/app/component/CreateProfile";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import ProfileCard from "@/app/component/ProfileCard";
+import useProfile from "../hooks/useProfiles";
 
 const Profiles = () => {
   const [newProfile, setNewProfile] = useState(false);
@@ -21,6 +22,8 @@ const Profiles = () => {
   };
 
   //router.refresh();
+
+  console.log(newProfile);
 
   return (
     <>

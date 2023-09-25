@@ -1,6 +1,6 @@
 "use client";
 
-import router, { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React, {
   Dispatch,
   SetStateAction,
@@ -59,11 +59,15 @@ export const ProfileIdProvider = ({
     return defaultValue.profileId;
   });
 
-  // const router = useRouter();
+  const router = useRouter();
 
-  // if (profileId.id === undefined) {
-  //   router.push("/profiles");
-  // }
+  useEffect(() => {
+    if (profileId.id === undefined) {
+      setTimeout(() => {
+        router.push("/profiles");
+      }, 1000);
+    }
+  }, [profileId, router]);
 
   useEffect(() => {
     if (typeof localStorage !== "undefined") {

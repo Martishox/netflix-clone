@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useState } from "react";
+import { ChangeEvent, FC, useCallback, useState } from "react";
 import {
   MdOutlineCheckBoxOutlineBlank,
   MdOutlineCheckBox,
@@ -7,6 +7,7 @@ import Image from "next/legacy/image";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useProfileId } from "@/app/component/ContextProvider";
 
 const CreateProfile = () => {
   const imageKids =
@@ -21,6 +22,7 @@ const CreateProfile = () => {
   const randomIndex = Math.floor(Math.random() * imagesCount.length);
 
   const router = useRouter();
+  const { setProfileId } = useProfileId();
 
   const [profileData, setProfileData] = useState({
     name: "",
@@ -50,22 +52,28 @@ const CreateProfile = () => {
     setProfileData({ ...profileData, name: e.target.value });
   };
 
-  const handleCreateProfile = () => {
+  const handleCreateProfile = useCallback(async () => {
     const newProfileData = {
       name: profileData.name,
       image: selectedImage,
       kid: profileData.kid,
     };
 
-    axios
+    await axios
       .post("/api/profile", newProfileData)
       .then((response) => {
         console.log("Profile created successfully:", response.data);
+        setProfileId({
+          id: response.data.id,
+          name: profileData.name,
+          image: selectedImage,
+          kid: profileData.kid,
+        });
       })
       .catch((error) => {
         console.error("Error creating profile:", error);
       });
-  };
+  }, [profileData]);
 
   const Icon = profileData.kid
     ? MdOutlineCheckBox
@@ -78,11 +86,11 @@ const CreateProfile = () => {
           <h1 className="text-3xl md:text-7xl text-white text-left">
             Add Profile
           </h1>
-          <h3 className=" my-4 text-md md:text-2xl text-[#545454] text-left">
+          <h3 className=" my-4 text-sm md:text-2xl text-[#545454] text-left">
             Add a profile for another person watching Netflix.
           </h3>
           <div className="flex-grow border-t border-[#2e2e2e]"></div>
-          <div className="my-5 flex items-center max-w-full h-auto">
+          <div className="my-5 flex flex-col sm:flex-row items-center max-w-full h-auto">
             <Image
               className="rounded-md mx-2"
               width={150}
@@ -90,31 +98,34 @@ const CreateProfile = () => {
               src={selectedImage}
               alt="Profile"
             />
-
-            <input
-              type="text"
-              placeholder="Name"
-              value={profileData.name}
-              onChange={handleNameChange}
-              className="bg-neutral-700 w-64 h-10 md:w-96 md:h-12 text-lg appearance-none py-1 px-2 mx-5 text-white focus:outline-none"
-            />
-            <div
-              onClick={toggleIsCheck}
-              className="cursors-pointer group/item ">
-              <Icon
-                className="text-[#545454] cursor-pointer max-w-full w-8 h-8"
-                size={50}
+            <div className="flex mt-5 sm:mt-0">
+              <input
+                type="text"
+                placeholder="Name"
+                value={profileData.name}
+                onChange={handleNameChange}
+                className="bg-neutral-700 w-52 sm:w-64 h-10 md:w-96 md:h-12 text-lg appearance-none py-1 px-2 mx-5 text-white focus:outline-none"
               />
+              <div className="flex items-center">
+                <div
+                  onClick={toggleIsCheck}
+                  className="cursors-pointer group/item ">
+                  <Icon
+                    className="text-[#545454] cursor-pointer max-w-full w-8 h-8"
+                    size={50}
+                  />
+                </div>
+                <span className="text-white text-md md:text-xl ml-2">
+                  Kid?
+                </span>
+              </div>
             </div>
-            <span className="text-white text-md md:text-xl ml-2">
-              Kid?
-            </span>
           </div>
           <div className="flex-grow border-t border-[#2e2e2e]"></div>
           <div>
             <Link
               href={{
-                pathname: "/profiles",
+                pathname: "/",
               }}>
               <button
                 type="submit"
