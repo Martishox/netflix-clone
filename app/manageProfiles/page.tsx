@@ -25,7 +25,7 @@ const ManageProfiles = () => {
       {newProfile === true ? (
         <CreateProfile />
       ) : (
-        <div className="flex items-center h-full justify-center">
+        <div className="flex items-center relative top-20 sm:h-full justify-center">
           <div className="flex flex-col">
             <h1 className="text-3xl md:text-6xl text-white text-center">
               Who's watching?
@@ -34,7 +34,7 @@ const ManageProfiles = () => {
             <div className=" text-center mt-16 ">
               <button
                 onClick={() => router.push("/profiles")}
-                className=" bg-white text-black font-bold py-3 px-9 text-xl md:text-2xl hover:text-white hover:bg-[#cc0000]">
+                className=" bg-white text-black font-bold py-3 px-9 mb-10 text-xl md:text-2xl hover:text-white hover:bg-[#cc0000]">
                 Done
               </button>
             </div>
