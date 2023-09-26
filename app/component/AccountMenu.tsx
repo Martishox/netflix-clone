@@ -1,12 +1,10 @@
 import { FC } from "react";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/legacy/image";
-import profile from "@/app/public/default-slate.png";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { PiPencilSimpleBold } from "react-icons/pi";
-import useCurrentProfile from "../hooks/useCurrentProfile";
 import { useProfileId } from "./ContextProvider";
 
 interface AccountMenuProps {
@@ -33,7 +31,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ visible }) => {
               src={profileId.image}
               width={40}
               height={40}
-              className="rounded-md"
+              className="rounded-sm"
               alt="Profile"
             />
           ) : (

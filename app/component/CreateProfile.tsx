@@ -62,7 +62,6 @@ const CreateProfile = () => {
     await axios
       .post("/api/profile", newProfileData)
       .then((response) => {
-        console.log("Profile created successfully:", response.data);
         setProfileId({
           id: response.data.id,
           name: profileData.name,

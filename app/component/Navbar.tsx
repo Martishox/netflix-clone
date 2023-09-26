@@ -1,18 +1,16 @@
 import Image from "next/legacy/image";
 import logo from "@/app/public/logo.png";
 import NavbarItem from "@/app/component/NavbarItem";
-import profile from "@/app/public/default-slate.png";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 import { BsChevronDown } from "react-icons/bs";
-import { BsSearch } from "react-icons/bs";
 import { BiBell } from "react-icons/bi";
 import MobileMenu from "@/app/component/MobileMenu";
-import { FC, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import AccountMenu from "@/app/component/AccountMenu";
-import useCurrentProfile from "../hooks/useCurrentProfile";
 import { useProfileId } from "./ContextProvider";
+import Link from "next/link";
 
 const TOP_OFFSET = 66;
 
@@ -47,15 +45,29 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="w-full fixed z-40">
+    <nav className="w-full fixed z-50 top-0">
       <div
-        className={`px-4 md-px-16 py-6 flex flex-row items-center transition duration-500 ${
+        className={` px-4 md-px-16 py-6 flex flex-row items-center transition duration-500 ${
           showBackground ? "bg-zinc-900 bg-opacity-90" : ""
         } `}>
-        <Image height={31} width={120} src={logo} />
+        <div className="sm:inline hidden">
+          <Image height={31} width={120} src={logo} />
+        </div>
+
         <div className="flex-row ml-8 gap-7 hidden lg:flex">
-          <NavbarItem label="Home" />
-          <NavbarItem label="Films" />
+          <Link
+            href={{
+              pathname: "/",
+            }}>
+            <NavbarItem label="Home" />
+          </Link>
+          <Link
+            href={{
+              pathname: "/films",
+            }}>
+            <NavbarItem label="Films" />
+          </Link>
+
           <NavbarItem label="New & Popular" />
           <NavbarItem label="My List" />
           <NavbarItem label="Browse by languages" />
@@ -95,7 +107,7 @@ const Navbar = () => {
               )}
             </div>
             <BsChevronDown
-              className={`text-white transition ${
+              className={`text-white transition hidden md:inline ${
                 showAccountMenu ? "rotate-180" : "rotate-0"
               }`}
             />

@@ -13,8 +13,6 @@ const MovieList: FC<MovieListProps> = ({ data, title }) => {
   const [showLeftButton, setShowLeftButton] = useState(false);
   const [showRightButton, setShowRightButton] = useState(true);
 
-  console.log(scrollPosition);
-
   const toggleScroll = (direction: "right" | "left") => {
     if (containerRef.current) {
       const newScrollPosition =
@@ -29,12 +27,12 @@ const MovieList: FC<MovieListProps> = ({ data, title }) => {
   };
 
   return (
-    <div className="md:px-12 mt-4 space-y-8 no-scrollbar transition relative w-full whitespace-nowrap">
-      <p className="text-white text-md md:text-xl lg:text-2xl font-semibold mb-4">
+    <div className="md:px-12 px-6 mt-10 space-y-6 no-scrollbar sm:overflow-visible overflow-hidden transition relative w-full">
+      <p className="text-white text-md md:text-xl lg:text-2xl font-semibold mb-4 ">
         {title}
       </p>
       <div
-        className="flex space-x-2"
+        className="flex gap-2"
         style={{
           transform: `translateX(${scrollPosition}px)`,
           transition: "transform 0.3s ease",
@@ -46,20 +44,17 @@ const MovieList: FC<MovieListProps> = ({ data, title }) => {
       </div>
       {data.length > 5 && showRightButton && (
         <button
-          className="absolute right-0 top-0 h-[20vw] md:h-[12vw] mr-6 "
+          className="absolute right-0 top-0 h-[26vw] md:h-[14vw] sm:h-[22vw] mr-6"
           onClick={() => toggleScroll("right")}>
-          <FiChevronRight className="text-[#cccccc] md:text-xl lg:text-5xl bg-black bg-opacity-50 rounded-full" />
+          <FiChevronRight className="text-[#cccccc] text-3xl xs:text-4xl sm:text-5xl bg-black bg-opacity-50 rounded-full" />
         </button>
       )}
 
       {showLeftButton && (
         <button
-          className="absolute left-0 top-0 h-[13vw] ml-14"
+          className="absolute left-0 top-0 h-[26vw] md:h-[14vw] sm:h-[22vw] ml-14"
           onClick={() => toggleScroll("left")}>
-          <FiChevronLeft
-            size={50}
-            className="bg-black bg-opacity-50 rounded-full text-[#cccccc]"
-          />
+          <FiChevronLeft className="text-[#cccccc] text-3xl xs:text-4xl sm:text-5xl bg-black bg-opacity-50 rounded-full" />
         </button>
       )}
     </div>

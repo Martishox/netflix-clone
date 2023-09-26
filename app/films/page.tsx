@@ -20,7 +20,8 @@ const Films = () => {
     <>
       <Navbar />
 
-      <div className="pb-40">
+      <div className="pb-40 relative">
+        <div className="relative mt-52"></div>
         <MovieList title="Films" data={movies} />
       </div>
     </>

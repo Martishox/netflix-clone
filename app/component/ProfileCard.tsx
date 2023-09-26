@@ -1,7 +1,6 @@
 import { redirect, usePathname } from "next/navigation";
 import Image from "next/legacy/image";
-import profile from "@/app/public/default-slate.png";
-import React, { FC, useCallback, useEffect } from "react";
+import React, { FC } from "react";
 import useProfile from "@/app/hooks/useProfiles";
 import { useSession } from "next-auth/react";
 import { BsPlusCircle } from "react-icons/bs";
@@ -35,7 +34,7 @@ const ProfileCard: FC<ProfileCardProps> = ({ toggleNewProfile }) => {
 
   return (
     <>
-      <div className="flex items-center justify-center flex-wrap nt-10 mt-10 ">
+      <div className="flex items-center justify-center flex-wrap mt-10 ">
         {profileData &&
           profileData?.map(
             (profiles: ProfileProps, index: number) => (
@@ -115,7 +114,7 @@ const ProfileCard: FC<ProfileCardProps> = ({ toggleNewProfile }) => {
           " "
         ) : (
           <div
-            className="group flex-row w-44"
+            className="group flex-row w-44 mx-4"
             onClick={toggleNewProfile}>
             <div className="w-44 h-44 rounded-md flex items-center justify-center border-2 border-transparent group-hover:cursor-pointer group-hover:border-white overflow-hidden">
               <BsPlusCircle className="text-white" size={80} />

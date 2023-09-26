@@ -59,15 +59,15 @@ export const ProfileIdProvider = ({
     return defaultValue.profileId;
   });
 
-  const router = useRouter();
+  // const router = useRouter();
 
-  useEffect(() => {
-    if (profileId.id === undefined) {
-      setTimeout(() => {
-        router.push("/profiles");
-      }, 1000);
-    }
-  }, [profileId, router]);
+  // useEffect(() => {
+  //   if (profileId.id === undefined) {
+  //     setTimeout(() => {
+  //       router.push("/profiles");
+  //     }, 5000);
+  //   }
+  // }, [profileId]);
 
   useEffect(() => {
     if (typeof localStorage !== "undefined") {

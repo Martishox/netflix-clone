@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import Image from "next/legacy/image";
 import { BsPlayFill } from "react-icons/bs";
 import { FiChevronDown } from "react-icons/fi";
@@ -13,19 +13,37 @@ interface MovieCardProps {
 const MovieCard: FC<MovieCardProps> = ({ data }) => {
   const router = useRouter();
   const { openModal } = useInfoModalStore();
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 900);
+
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= 900);
+  };
+
+  window.addEventListener("resize", handleResize);
   return (
     <>
-      <div className="group bg-zinc-900 col-span relative w-[18vw]">
-        <div className="h-[12vw] w-[18vw]">
+      <div className="group bg-zinc-900 col-span relative ">
+        <div
+          className="h-[15vw] sm:h-[12vw] w-[28vw] md:w-[18vw]"
+          onClick={() => openModal(data?.id)}>
           <Image
-            className="cursor-pointer object-cover transition duration shadow-xl rounded-md group-hover:opacity-90 sm:group-hover:opacity-0 delay-300 w-full h-[12vw]"
+            className={`cursor-pointer object-cover transition duration shadow-xl rounded-md ${
+              isMobile
+                ? ""
+                : "group-hover:opacity-90 sm:group-hover:opacity-0 delay-300"
+            } w-full h-[12vw]`}
             width={1920}
             height={1000}
             src={data.thumbnailUrl}
             alt="Thumbnail"
           />
         </div>
-        <div className="opacity-0 rounded-t-md absolute top-0 transition duration-200 z-10 invisible sm:visible delay-300 w-full scale-0 group-hover:scale-110 group-hover:-translate-y-[6vw] group-hover:translate-x-[2vw] group-hover:opacity-100 bg-zinc-800">
+        <div
+          className={`opacity-0 rounded-t-md absolute top-0 transition duration-200 z-10 invisible sm:visible delay-300 w-full scale-0 bg-zinc-800 ${
+            isMobile
+              ? ""
+              : "group-hover:scale-110 group-hover:-translate-y-[10vw] group-hover:translate-x-[1.5vw] group-hover:opacity-100"
+          }`}>
           <Image
             className="cursor-pointer object-cover transition duration shadow-xl rounded-t-md w-full h-[12vw]"
             width={1920}
@@ -33,7 +51,7 @@ const MovieCard: FC<MovieCardProps> = ({ data }) => {
             src={data.thumbnailUrl}
             alt="Thumbnail"
           />
-          <div className="z-10 bg-zinc-800 p-2 lg:p-4 absolute w-full transition shadow-md rounded-b-md">
+          <div className="bg-zinc-800 p-2 lg:p-4 absolute w-full transition shadow-md rounded-b-md">
             <div className="flex flex-row items-center gap-3">
               <div
                 onClick={() => router.push(`/watch/${data?.id}`)}

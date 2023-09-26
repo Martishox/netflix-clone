@@ -19,13 +19,10 @@ const ManageProfile = () => {
   ) => {
     event.preventDefault();
     try {
-      axios
-        .delete("/api/profile", {
-          data: { profileId },
-        })
-        .then((response) => {
-          console.log("Profile deleted successfully:", response.data);
-        });
+      axios.delete("/api/profile", {
+        data: { profileId },
+      });
+
       router.replace("/profiles");
     } catch (error) {
       console.error("Error deleting profile:", error);
@@ -42,14 +39,10 @@ const ManageProfile = () => {
 
   const handleSaveProfile = async () => {
     try {
-      await axios
-        .put("/api/profile", {
-          profileId: profileId?.id,
-          name: name,
-        })
-        .then((response) => {
-          console.log("Profile updated successfully:", response.data);
-        });
+      await axios.put("/api/profile", {
+        profileId: profileId?.id,
+        name: name,
+      });
     } catch (error) {
       console.error("Error updating profile:", error);
     }
