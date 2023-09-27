@@ -8,6 +8,7 @@ import ProfileCard from "@/app/component/ProfileCard";
 
 const Profiles = () => {
   const [newProfile, setNewProfile] = useState(false);
+  const [refreshed, setRefreshed] = useState(false);
   const router = useRouter();
   const { data: session } = useSession({
     required: true,
@@ -20,12 +21,10 @@ const Profiles = () => {
     setNewProfile((prev) => !prev);
   };
 
-  //router.refresh();
-
   return (
     <>
       {newProfile === true ? (
-        <CreateProfile />
+        <CreateProfile toggleNewProfile={toggleNewProfile} />
       ) : (
         <div className="flex items-center relative top-[10%] sm:top-[25%]  justify-center">
           <div className="flex flex-col">

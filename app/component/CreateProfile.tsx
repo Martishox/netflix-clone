@@ -9,7 +9,13 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useProfileId } from "@/app/component/ContextProvider";
 
-const CreateProfile = () => {
+interface CreateProfileProps {
+  toggleNewProfile: () => void;
+}
+
+const CreateProfile: FC<CreateProfileProps> = ({
+  toggleNewProfile,
+}) => {
   const imageKids =
     "https://res.cloudinary.com/dthrgdcko/image/upload/v1694207889/default-kids_cowvea.png";
 
@@ -74,6 +80,10 @@ const CreateProfile = () => {
       });
   }, [profileData]);
 
+  const handleBack = () => {
+    toggleNewProfile();
+  };
+
   const Icon = profileData.kid
     ? MdOutlineCheckBox
     : MdOutlineCheckBoxOutlineBlank;
@@ -122,22 +132,18 @@ const CreateProfile = () => {
           </div>
           <div className="flex-grow border-t border-[#2e2e2e]"></div>
           <div>
-            <Link
-              href={{
-                pathname: "/",
-              }}>
-              <button
-                type="submit"
-                onClick={() => {
-                  handleCreateProfile();
-                }}
-                className="bg-white text-black py-2.5 px-8 mr-5 mt-10 text-sm md:text-2xl font-bold hover:text-white hover:bg-[#cc0000]">
-                Continue
-              </button>
-            </Link>
+            <button
+              type="submit"
+              onClick={() => {
+                handleCreateProfile();
+                handleBack();
+              }}
+              className="bg-white text-black py-2.5 px-8 mr-5 mt-10 text-sm md:text-2xl font-bold hover:text-white hover:bg-[#cc0000]">
+              Continue
+            </button>
 
             <button
-              onClick={() => router.back()}
+              onClick={() => handleBack()}
               className="border text-sm md:text-2xl border-[#858585] text-[#858585] py-2.5 px-8 hover:text-white hover:border-white">
               Cancel
             </button>

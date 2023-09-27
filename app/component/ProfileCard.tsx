@@ -1,6 +1,6 @@
 import { redirect, usePathname } from "next/navigation";
 import Image from "next/legacy/image";
-import React, { FC } from "react";
+import React, { FC, useCallback, useEffect, useState } from "react";
 import useProfile from "@/app/hooks/useProfiles";
 import { useSession } from "next-auth/react";
 import { BsPlusCircle } from "react-icons/bs";
@@ -22,8 +22,9 @@ interface ProfileProps {
 
 const ProfileCard: FC<ProfileCardProps> = ({ toggleNewProfile }) => {
   const pathname = usePathname();
-  const { data: profileData } = useProfile();
+  const { data: profileData, mutate } = useProfile();
   const { setProfileId } = useProfileId();
+  const [profile, setProfile] = useState();
 
   const { data: session } = useSession({
     required: true,

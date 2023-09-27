@@ -6,18 +6,13 @@ import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import useMovieList from "@/app/hooks/useMovieList";
 import MovieList from "@/app/component/MovieList";
-import InfoModal from "@/app/component/InfoModal";
-import Billboard from "@/app/component/Billboard";
-import useInfoModalStore from "@/app/hooks/useInfoModalStore";
-import useFavorites from "@/app/hooks/useFavorites";
 import { useProfileId } from "@/app/component/ContextProvider";
+import useFavorites from "@/app/hooks/useFavorites";
 
-const Films = () => {
+const MyList = () => {
   const { profileId } = useProfileId();
-  const { data: movies = [] } = useMovieList();
   const { data: favorites = [] } = useFavorites(profileId?.id);
-  const { isOpen, closeModal } = useInfoModalStore();
-
+  const { data: movies = [] } = useMovieList();
   const { data: session } = useSession({
     required: true,
     onUnauthenticated() {
@@ -27,16 +22,14 @@ const Films = () => {
 
   return (
     <>
-      <InfoModal visible={isOpen} onClose={closeModal} />
       <Navbar />
-      <Billboard />
-      <div className="pb-40">
-        <MovieList title="New & Popular" data={movies} />
-        <MovieList title="Top Searches" data={movies} />
+
+      <div className="pb-40 relative">
+        <div className="relative mt-52"></div>
         <MovieList title="My List" data={favorites} />
       </div>
     </>
   );
 };
 
-export default Films;
+export default MyList;

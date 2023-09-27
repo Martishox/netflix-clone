@@ -67,10 +67,18 @@ const Navbar = () => {
             }}>
             <NavbarItem label="Films" />
           </Link>
-
-          <NavbarItem label="New & Popular" />
-          <NavbarItem label="My List" />
-          <NavbarItem label="Browse by languages" />
+          <Link
+            href={{
+              pathname: "/new",
+            }}>
+            <NavbarItem label="New & Popular" />
+          </Link>
+          <Link
+            href={{
+              pathname: "/myList",
+            }}>
+            <NavbarItem label="My List" />
+          </Link>
         </div>
         <div
           onClick={toggleMobileMenu}

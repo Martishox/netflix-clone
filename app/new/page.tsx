@@ -1,18 +1,17 @@
 "use client";
 
+import InfoModal from "@/app/component/InfoModal";
 import Navbar from "@/app/component/Navbar";
-
+import Billboard from "@/app/component/Billboard";
+import MovieList from "@/app/component/MovieList";
 import { useSession } from "next-auth/react";
+import useInfoModalStore from "@/app/hooks/useInfoModalStore";
 import { redirect } from "next/navigation";
 import useMovieList from "@/app/hooks/useMovieList";
-import MovieList from "@/app/component/MovieList";
-import InfoModal from "@/app/component/InfoModal";
-import Billboard from "@/app/component/Billboard";
-import useInfoModalStore from "@/app/hooks/useInfoModalStore";
-import useFavorites from "@/app/hooks/useFavorites";
 import { useProfileId } from "@/app/component/ContextProvider";
+import useFavorites from "@/app/hooks/useFavorites";
 
-const Films = () => {
+const NewAndPopular = () => {
   const { profileId } = useProfileId();
   const { data: movies = [] } = useMovieList();
   const { data: favorites = [] } = useFavorites(profileId?.id);
@@ -39,4 +38,4 @@ const Films = () => {
   );
 };
 
-export default Films;
+export default NewAndPopular;

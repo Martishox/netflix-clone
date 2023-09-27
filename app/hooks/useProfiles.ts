@@ -9,6 +9,7 @@ const useProfile = () => {
       revalidateIfStale: false,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
+      refreshInterval: 3000,
     }
   );
 
