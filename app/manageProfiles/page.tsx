@@ -23,7 +23,7 @@ const ManageProfiles = () => {
   return (
     <>
       {newProfile === true ? (
-        <CreateProfile />
+        <CreateProfile toggleNewProfile={toggleNewProfile} />
       ) : (
         <div className="flex items-center relative top-[10%] sm:top-[25%] justify-center">
           <div className="flex flex-col">

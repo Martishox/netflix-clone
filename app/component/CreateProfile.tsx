@@ -5,7 +5,6 @@ import {
 } from "react-icons/md";
 import Image from "next/legacy/image";
 import axios from "axios";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useProfileId } from "@/app/component/ContextProvider";
 
@@ -109,6 +108,7 @@ const CreateProfile: FC<CreateProfileProps> = ({
             />
             <div className="flex mt-5 sm:mt-0">
               <input
+                required
                 type="text"
                 placeholder="Name"
                 value={profileData.name}
