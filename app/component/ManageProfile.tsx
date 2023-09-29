@@ -3,7 +3,7 @@ import Image from "next/legacy/image";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useProfileId } from "./ContextProvider";
+import { useProfileId } from "@/app/component/ContextProvider";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 

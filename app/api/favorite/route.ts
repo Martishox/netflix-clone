@@ -1,8 +1,6 @@
 import { without } from "lodash";
 
 import prismadb from "@/app/lib/prismadb";
-import serverAuth from "@/app/lib/serverAuth";
-import { useProfileId } from "@/app/component/ContextProvider";
 
 export async function POST(req: Request) {
   try {

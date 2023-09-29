@@ -5,7 +5,6 @@ import {
 } from "react-icons/md";
 import Image from "next/legacy/image";
 import axios from "axios";
-import { useRouter } from "next/navigation";
 import { useProfileId } from "@/app/component/ContextProvider";
 
 interface CreateProfileProps {
@@ -26,7 +25,6 @@ const CreateProfile: FC<CreateProfileProps> = ({
   ];
   const randomIndex = Math.floor(Math.random() * imagesCount.length);
 
-  const router = useRouter();
   const { setProfileId } = useProfileId();
 
   const [profileData, setProfileData] = useState({

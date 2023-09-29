@@ -8,7 +8,6 @@ import ProfileCard from "@/app/component/ProfileCard";
 
 const Profiles = () => {
   const [newProfile, setNewProfile] = useState(false);
-  const [refreshed, setRefreshed] = useState(false);
   const router = useRouter();
   const { data: session } = useSession({
     required: true,

@@ -5,7 +5,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useRouter } from "next/navigation";
 import { PiPencilSimpleBold } from "react-icons/pi";
-import { useProfileId } from "./ContextProvider";
+import { useProfileId } from "@/app/component/ContextProvider";
 
 interface AccountMenuProps {
   visible?: boolean;
