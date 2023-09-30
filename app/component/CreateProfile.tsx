@@ -75,7 +75,7 @@ const CreateProfile: FC<CreateProfileProps> = ({
       .catch((error) => {
         console.error("Error creating profile:", error);
       });
-  }, [profileData]);
+  }, [profileData, selectedImage, setProfile]);
 
   const handleBack = () => {
     toggleNewProfile();

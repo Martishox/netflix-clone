@@ -51,7 +51,7 @@ const Navbar = () => {
           showBackground ? "bg-zinc-900 bg-opacity-90" : ""
         } `}>
         <div className="sm:inline hidden">
-          <Image height={31} width={120} src={logo} />
+          <Image alt="Logo" height={31} width={120} src={logo} />
         </div>
 
         <div className="flex-row ml-8 gap-7 hidden lg:flex">

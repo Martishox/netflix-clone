@@ -144,9 +144,9 @@ const ManageProfile = () => {
                 </span>
               </div>
               <span className="text-white text-sm text-justify md:px-3 px-8 md:text-xl ml-2 w-96">
-                This profile's history - including My List, ratings
-                and activity - will be gone forever, and you won't be
-                able to access it again.
+                This profile&lsquo;s history - including My List,
+                ratings and activity - will be gone forever, and you
+                won&lsquo;t be able to access it again.
               </span>
             </div>
             <div className="flex-grow border-t border-[#2e2e2e]"></div>

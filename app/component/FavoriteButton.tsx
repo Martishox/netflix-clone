@@ -51,7 +51,14 @@ const FavoriteButton: FC<FavoriteButtonProps> = ({ movieId }) => {
     } catch (error) {
       console.error("Error toggling favorites:", error);
     }
-  }, [movieId, isFavorite, currentProfile, mutate, mutateFavorites]);
+  }, [
+    movieId,
+    isFavorite,
+    currentProfile,
+    mutate,
+    mutateFavorites,
+    profile,
+  ]);
 
   const Icon = isFavorite ? AiOutlineCheck : AiOutlinePlus;
 

@@ -28,7 +28,7 @@ const Profiles = () => {
         <div className="flex items-center relative top-[10%] sm:top-[25%]  justify-center">
           <div className="flex flex-col">
             <h1 className="text-3xl md:text-6xl text-white text-center">
-              Who's watching?
+              Who&lsquo;s watching?
             </h1>
             <ProfileCard toggleNewProfile={toggleNewProfile} />
             <div className="text-center mt-16 ">
