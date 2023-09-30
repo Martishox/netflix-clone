@@ -5,7 +5,7 @@ import {
 } from "react-icons/md";
 import Image from "next/legacy/image";
 import axios from "axios";
-import { useProfileId } from "@/app/component/ContextProvider";
+import { useProfile } from "@/app/component/ContextProvider";
 
 interface CreateProfileProps {
   toggleNewProfile: () => void;
@@ -25,7 +25,7 @@ const CreateProfile: FC<CreateProfileProps> = ({
   ];
   const randomIndex = Math.floor(Math.random() * imagesCount.length);
 
-  const { setProfileId } = useProfileId();
+  const { setProfile } = useProfile();
 
   const [profileData, setProfileData] = useState({
     name: "",
@@ -65,7 +65,7 @@ const CreateProfile: FC<CreateProfileProps> = ({
     await axios
       .post("/api/profile", newProfileData)
       .then((response) => {
-        setProfileId({
+        setProfile({
           id: response.data.id,
           name: profileData.name,
           image: selectedImage,
@@ -133,8 +133,10 @@ const CreateProfile: FC<CreateProfileProps> = ({
             <button
               type="submit"
               onClick={() => {
-                handleCreateProfile();
-                handleBack();
+                if (profileData.name !== "") {
+                  handleCreateProfile();
+                  handleBack();
+                }
               }}
               className="bg-white text-black py-2.5 px-8 mr-5 mt-10 text-sm md:text-2xl font-bold hover:text-white hover:bg-[#cc0000]">
               Continue

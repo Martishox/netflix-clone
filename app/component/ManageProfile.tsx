@@ -3,14 +3,14 @@ import Image from "next/legacy/image";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useProfileId } from "@/app/component/ContextProvider";
+import { useProfile } from "@/app/component/ContextProvider";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 const ManageProfile = () => {
-  const { profileId } = useProfileId();
+  const { profile } = useProfile();
   const [toggleDelete, setToggleDelete] = useState(true);
-  const [name, setName] = useState(profileId?.name);
+  const [name, setName] = useState(profile?.name);
 
   const router = useRouter();
 
@@ -20,7 +20,7 @@ const ManageProfile = () => {
     event.preventDefault();
     try {
       axios.delete("/api/profile", {
-        data: { profileId },
+        data: { profile },
       });
 
       router.replace("/profiles");
@@ -40,7 +40,7 @@ const ManageProfile = () => {
   const handleSaveProfile = async () => {
     try {
       await axios.put("/api/profile", {
-        profileId: profileId?.id,
+        profileId: profile?.id,
         name: name,
       });
     } catch (error) {
@@ -58,9 +58,9 @@ const ManageProfile = () => {
             </h1>
             <div className="flex-grow border-t border-[#2e2e2e]"></div>
             <div className="my-5 flex flex-col sm:flex-row items-center">
-              {profileId?.image ? (
+              {profile?.image ? (
                 <Image
-                  src={profileId.image}
+                  src={profile.image}
                   width={150}
                   height={150}
                   className="rounded-md"
@@ -91,7 +91,11 @@ const ManageProfile = () => {
                 }}>
                 <button
                   type="submit"
-                  onClick={handleSaveProfile}
+                  onClick={() => {
+                    if (name !== "") {
+                      handleSaveProfile();
+                    }
+                  }}
                   className="bg-white text-black px-3 py-2 md:py-2.5 md:px-8 mr-5 mt-10 text-sm md:text-2xl font-bold hover:text-white hover:bg-[#cc0000]">
                   Save
                 </button>
@@ -120,9 +124,9 @@ const ManageProfile = () => {
             <div className="flex-grow border-t border-[#2e2e2e]"></div>
             <div className="my-5 flex items-center justify-center flex-wrap">
               <div className="flex flex-col items-center ">
-                {profileId?.image ? (
+                {profile?.image ? (
                   <Image
-                    src={profileId.image}
+                    src={profile.image}
                     width={150}
                     height={150}
                     className="rounded-md"
@@ -136,7 +140,7 @@ const ManageProfile = () => {
                   />
                 )}
                 <span className="text-[#cccccc] mt-2 text-lg">
-                  {profileId.name}
+                  {profile.name}
                 </span>
               </div>
               <span className="text-white text-sm text-justify md:px-3 px-8 md:text-xl ml-2 w-96">

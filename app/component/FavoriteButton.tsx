@@ -4,19 +4,21 @@ import React, { FC, useCallback, useMemo } from "react";
 import useFavorites from "@/app/hooks/useFavorites";
 import { AiOutlinePlus, AiOutlineCheck } from "react-icons/ai";
 import useCurrentProfile from "@/app/hooks/useCurrentProfile";
-import { useProfileId } from "@/app/component/ContextProvider";
+import { useProfile } from "@/app/component/ContextProvider";
 
 interface FavoriteButtonProps {
   movieId: string;
 }
 
 const FavoriteButton: FC<FavoriteButtonProps> = ({ movieId }) => {
-  const { profileId } = useProfileId();
+  const { profile } = useProfile();
   const { data: currentProfile, mutate } = useCurrentProfile(
-    profileId?.id
+    profile?.id
   );
 
-  const { mutate: mutateFavorites } = useFavorites(profileId?.id);
+  console.log(profile);
+
+  const { mutate: mutateFavorites } = useFavorites(profile?.id);
 
   const isFavorite = useMemo(() => {
     const list = currentProfile?.favoriteIds || [];
@@ -29,12 +31,12 @@ const FavoriteButton: FC<FavoriteButtonProps> = ({ movieId }) => {
       let response;
       if (isFavorite) {
         response = await axios.delete("/api/favorite", {
-          data: { movieId, profileId },
+          data: { movieId, profile },
         });
       } else {
         response = await axios.post("/api/favorite", {
           movieId,
-          profileId,
+          profile,
         });
       }
 

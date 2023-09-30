@@ -13,14 +13,14 @@ interface ContextProviderProps {
   children: React.ReactNode;
 }
 
-interface ProfileIdContextType {
-  profileId: {
+interface ProfileContextType {
+  profile: {
     id: string | undefined;
     name: string | undefined;
     image: string | undefined;
     kid: boolean | undefined;
   };
-  setProfileId: Dispatch<
+  setProfile: Dispatch<
     SetStateAction<{
       id: string | undefined;
       name: string | undefined;
@@ -30,63 +30,53 @@ interface ProfileIdContextType {
   >;
 }
 
-const defaultValue: ProfileIdContextType = {
-  profileId: {
+const defaultValue: ProfileContextType = {
+  profile: {
     id: undefined,
     name: undefined,
     image: undefined,
     kid: undefined,
   },
-  setProfileId: () => {},
+  setProfile: () => {},
 };
 
-const ProfileIdContext = createContext(defaultValue);
+const ProfileContext = createContext(defaultValue);
 
-export const useProfileId = () => {
-  return useContext(ProfileIdContext);
+export const useProfile = () => {
+  return useContext(ProfileContext);
 };
 
-export const ProfileIdProvider = ({
+export const ProfileProvider = ({
   children,
 }: ContextProviderProps) => {
-  const [profileId, setProfileId] = useState<{
+  const [profile, setProfile] = useState<{
     id: string | undefined;
     name: string | undefined;
     image: string | undefined;
     kid: boolean | undefined;
   }>(() => {
-    return defaultValue.profileId;
+    return defaultValue.profile;
   });
-
-  // const router = useRouter();
-
-  // useEffect(() => {
-  //   if (profileId.id === undefined) {
-  //     setTimeout(() => {
-  //       router.push("/profiles");
-  //     }, 5000);
-  //   }
-  // }, [profileId]);
 
   useEffect(() => {
     if (typeof localStorage !== "undefined") {
-      const storedProfileId = localStorage.getItem("profileId");
-      if (storedProfileId) {
-        const parsedProfileId = JSON.parse(storedProfileId);
-        setProfileId(parsedProfileId);
+      const storedProfile = localStorage.getItem("profile");
+      if (storedProfile) {
+        const parsedProfile = JSON.parse(storedProfile);
+        setProfile(parsedProfile);
       }
     }
   }, []);
 
   useEffect(() => {
     if (typeof localStorage !== "undefined") {
-      localStorage.setItem("profileId", JSON.stringify(profileId));
+      localStorage.setItem("profile", JSON.stringify(profile));
     }
-  }, [profileId]);
+  }, [profile]);
 
   return (
-    <ProfileIdContext.Provider value={{ profileId, setProfileId }}>
+    <ProfileContext.Provider value={{ profile, setProfile }}>
       {children}
-    </ProfileIdContext.Provider>
+    </ProfileContext.Provider>
   );
 };

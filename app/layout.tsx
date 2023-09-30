@@ -4,7 +4,7 @@ import "@/app/globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Provider from "@/app/component/Provider";
-import { ProfileIdProvider } from "@/app/component/ContextProvider";
+import { ProfileProvider } from "@/app/component/ContextProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,9 +24,9 @@ export default function RootLayout({
         <link rel="icon" href="/net.ico" />
       </head>
       <body className={inter.className}>
-        <ProfileIdProvider>
+        <ProfileProvider>
           <Provider>{children}</Provider>
-        </ProfileIdProvider>
+        </ProfileProvider>
       </body>
     </html>
   );

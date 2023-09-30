@@ -7,14 +7,14 @@ import useMovieList from "@/app/hooks/useMovieList";
 import useFavorites from "@/app/hooks/useFavorites";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
-import { useProfileId } from "@/app/component/ContextProvider";
+import { useProfile } from "@/app/component/ContextProvider";
 import useInfoModalStore from "@/app/hooks/useInfoModalStore";
 import InfoModal from "@/app/component/InfoModal";
 
 export default function Home() {
-  const { profileId } = useProfileId();
+  const { profile } = useProfile();
   const { data: movies = [] } = useMovieList();
-  const { data: favorites = [] } = useFavorites(profileId?.id);
+  const { data: favorites = [] } = useFavorites(profile?.id);
   const { isOpen, closeModal } = useInfoModalStore();
 
   const { data: session } = useSession({

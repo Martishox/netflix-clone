@@ -9,7 +9,7 @@ import { BiBell } from "react-icons/bi";
 import MobileMenu from "@/app/component/MobileMenu";
 import { useCallback, useEffect, useState } from "react";
 import AccountMenu from "@/app/component/AccountMenu";
-import { useProfileId } from "./ContextProvider";
+import { useProfile } from "./ContextProvider";
 import Link from "next/link";
 
 const TOP_OFFSET = 66;
@@ -19,7 +19,7 @@ const Navbar = () => {
   const [showAccountMenu, setShowAccountMenu] = useState(false);
   const [showBackground, setShowBackground] = useState(false);
 
-  const { profileId } = useProfileId();
+  const { profile } = useProfile();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -99,9 +99,9 @@ const Navbar = () => {
             onClick={toggleAccountMenu}
             className="flex flex-row items-center gap-2 cursor-pointer relative">
             <div className="w-6 h-6 lg:w-10 lg:h-10 rounded-md overflow-hidden">
-              {profileId?.image ? (
+              {profile?.image ? (
                 <Image
-                  src={profileId.image}
+                  src={profile.image}
                   width={40}
                   height={40}
                   alt="Profile"

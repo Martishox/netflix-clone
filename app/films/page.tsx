@@ -10,12 +10,12 @@ import InfoModal from "@/app/component/InfoModal";
 import Billboard from "@/app/component/Billboard";
 import useInfoModalStore from "@/app/hooks/useInfoModalStore";
 import useFavorites from "@/app/hooks/useFavorites";
-import { useProfileId } from "@/app/component/ContextProvider";
+import { useProfile } from "@/app/component/ContextProvider";
 
 const Films = () => {
-  const { profileId } = useProfileId();
+  const { profile } = useProfile();
   const { data: movies = [] } = useMovieList();
-  const { data: favorites = [] } = useFavorites(profileId?.id);
+  const { data: favorites = [] } = useFavorites(profile?.id);
   const { isOpen, closeModal } = useInfoModalStore();
 
   const { data: session } = useSession({

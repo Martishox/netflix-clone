@@ -18,6 +18,7 @@ const Input: FC<InputProps> = ({
   return (
     <div className="relative">
       <input
+        required
         onChange={onChange}
         value={value}
         id={id}

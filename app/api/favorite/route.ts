@@ -5,11 +5,11 @@ import prismadb from "@/app/lib/prismadb";
 export async function POST(req: Request) {
   try {
     if (req.method === "POST") {
-      const { movieId, profileId } = await req.json();
+      const { movieId, profile } = await req.json();
 
       const existingProfile = await prismadb.profile.findUnique({
         where: {
-          id: profileId?.id,
+          id: profile?.id,
         },
       });
 
@@ -54,11 +54,11 @@ export async function POST(req: Request) {
 export async function DELETE(req: Request) {
   try {
     if (req.method === "DELETE") {
-      const { movieId, profileId } = await req.json();
+      const { movieId, profile } = await req.json();
 
       const existingProfile = await prismadb.profile.findUnique({
         where: {
-          id: profileId?.id,
+          id: profile?.id,
         },
       });
 

@@ -6,12 +6,12 @@ import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import useMovieList from "@/app/hooks/useMovieList";
 import MovieList from "@/app/component/MovieList";
-import { useProfileId } from "@/app/component/ContextProvider";
+import { useProfile } from "@/app/component/ContextProvider";
 import useFavorites from "@/app/hooks/useFavorites";
 
 const MyList = () => {
-  const { profileId } = useProfileId();
-  const { data: favorites = [] } = useFavorites(profileId?.id);
+  const { profile } = useProfile();
+  const { data: favorites = [] } = useFavorites(profile?.id);
   const { data: movies = [] } = useMovieList();
   const { data: session } = useSession({
     required: true,

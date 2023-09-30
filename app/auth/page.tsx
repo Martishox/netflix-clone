@@ -23,6 +23,9 @@ const Auth = () => {
   }, []);
 
   const login = useCallback(async () => {
+    if (!email || !password) {
+      return;
+    }
     try {
       await signIn("credentials", {
         email,
@@ -35,6 +38,9 @@ const Auth = () => {
   }, [email, password]);
 
   const register = useCallback(async () => {
+    if (!email || !password || !name) {
+      return;
+    }
     try {
       await axios.post("/api/register", {
         email,
@@ -89,6 +95,7 @@ const Auth = () => {
                 />
               </div>
               <button
+                type="submit"
                 onClick={variant === "login" ? login : register}
                 className="bg-red-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition">
                 {variant === "login" ? "Login" : "Sign up"}

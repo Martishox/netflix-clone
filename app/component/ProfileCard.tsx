@@ -1,13 +1,13 @@
 import { redirect, usePathname } from "next/navigation";
 import Image from "next/legacy/image";
 import React, { FC } from "react";
-import useProfile from "@/app/hooks/useProfiles";
+import useProfiles from "@/app/hooks/useProfiles";
 import { useSession } from "next-auth/react";
 import { BsPlusCircle } from "react-icons/bs";
 import Link from "next/link";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { useProfileId } from "@/app/component/ContextProvider";
+import { useProfile } from "@/app/component/ContextProvider";
 import { PiPencilSimpleBold } from "react-icons/pi";
 
 interface ProfileCardProps {
@@ -22,8 +22,8 @@ interface ProfileProps {
 
 const ProfileCard: FC<ProfileCardProps> = ({ toggleNewProfile }) => {
   const pathname = usePathname();
-  const { data: profileData, mutate } = useProfile();
-  const { setProfileId } = useProfileId();
+  const { data: profileData, mutate } = useProfiles();
+  const { setProfile } = useProfile();
 
   const { data: session } = useSession({
     required: true,
@@ -41,7 +41,7 @@ const ProfileCard: FC<ProfileCardProps> = ({ toggleNewProfile }) => {
               <div key={`profile-${index}`} className="flex">
                 <div
                   onClick={() =>
-                    setProfileId({
+                    setProfile({
                       id: profiles.id,
                       name: profiles.name,
                       image: profiles.image,

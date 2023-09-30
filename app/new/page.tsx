@@ -8,13 +8,13 @@ import { useSession } from "next-auth/react";
 import useInfoModalStore from "@/app/hooks/useInfoModalStore";
 import { redirect } from "next/navigation";
 import useMovieList from "@/app/hooks/useMovieList";
-import { useProfileId } from "@/app/component/ContextProvider";
+import { useProfile } from "@/app/component/ContextProvider";
 import useFavorites from "@/app/hooks/useFavorites";
 
 const NewAndPopular = () => {
-  const { profileId } = useProfileId();
+  const { profile } = useProfile();
   const { data: movies = [] } = useMovieList();
-  const { data: favorites = [] } = useFavorites(profileId?.id);
+  const { data: favorites = [] } = useFavorites(profile?.id);
   const { isOpen, closeModal } = useInfoModalStore();
 
   const { data: session } = useSession({
