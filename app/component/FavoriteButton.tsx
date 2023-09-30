@@ -16,8 +16,6 @@ const FavoriteButton: FC<FavoriteButtonProps> = ({ movieId }) => {
     profile?.id
   );
 
-  console.log(profile);
-
   const { mutate: mutateFavorites } = useFavorites(profile?.id);
 
   const isFavorite = useMemo(() => {

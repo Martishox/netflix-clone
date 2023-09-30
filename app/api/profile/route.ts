@@ -118,11 +118,11 @@ export async function DELETE(req: Request) {
         return new Response("Unauthorized", { status: 401 });
       }
 
-      const { profileId } = await req.json();
+      const { profile } = await req.json();
 
       const existingProfile = await prismadb.profile.findUnique({
         where: {
-          id: profileId?.id,
+          id: profile?.id,
         },
       });
 
@@ -132,7 +132,7 @@ export async function DELETE(req: Request) {
 
       const deletedProfile = await prismadb.profile.delete({
         where: {
-          id: profileId?.id,
+          id: profile?.id,
         },
       });
 
