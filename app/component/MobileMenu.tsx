@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FC } from "react";
 
 interface MobileMenuProps {
@@ -12,22 +13,36 @@ const MobileMenu: FC<MobileMenuProps> = ({ visible }) => {
     <div className="bg-black w-56 absolute top-8 left-0 py-5 flex-col border-2 border-gray-800 flex">
       <div className="flex flex-col gap-4">
         <div className="px-3 text-center text-white hover:underline">
-          Home
+          <Link
+            href={{
+              pathname: "/",
+            }}>
+            Home
+          </Link>
         </div>
         <div className="px-3 text-center text-white hover:underline">
-          Series
+          <Link
+            href={{
+              pathname: "/films",
+            }}>
+            Films
+          </Link>
         </div>
         <div className="px-3 text-center text-white hover:underline">
-          Films
+          <Link
+            href={{
+              pathname: "/new",
+            }}>
+            New & Popular
+          </Link>
         </div>
         <div className="px-3 text-center text-white hover:underline">
-          New & Popular
-        </div>
-        <div className="px-3 text-center text-white hover:underline">
-          My list
-        </div>
-        <div className="px-3 text-center text-white hover:underline">
-          Browse by Languages
+          <Link
+            href={{
+              pathname: "/myList",
+            }}>
+            My List
+          </Link>
         </div>
       </div>
     </div>
