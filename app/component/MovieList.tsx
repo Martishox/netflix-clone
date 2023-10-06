@@ -28,7 +28,7 @@ const MovieList: FC<MovieListProps> = ({ data, title }) => {
 
   return (
     <>
-      <div className="md:px-12 px-6 mt-10 space-y-6 no-scrollbar md:overflow-hidden overflow-x-auto overflow-y-hidden transition relative w-full">
+      <div className="md:px-12 px-6 mt-10 space-y-6 no-scrollbar md:overflow-visible overflow-x-auto overflow-y-hidden transition relative w-full">
         <p className="text-white text-md md:text-xl lg:text-2xl font-semibold mb-4 ">
           {title}
         </p>
